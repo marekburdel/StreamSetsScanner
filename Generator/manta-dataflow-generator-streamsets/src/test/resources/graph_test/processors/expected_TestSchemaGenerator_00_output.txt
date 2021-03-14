@@ -1,0 +1,11 @@
+/UNKNOWN [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+/UNKNOWN [Field] . Schema Generator 1 [StreamSets Schema Generator Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+/UNKNOWN [Field] . Trash 1 [StreamSets Trash Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+StreamSets default server name [Server]
+Dev Data Generator 1 [StreamSets Default Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+Schema Generator 1 [StreamSets Schema Generator Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+Trash 1 [StreamSets Trash Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]	->	/UNKNOWN [Field] . Schema Generator 1 [StreamSets Schema Generator Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . Schema Generator 1 [StreamSets Schema Generator Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]	->	/UNKNOWN [Field] . Trash 1 [StreamSets Trash Stage] . TestSchemaGeneratord8d477ab-c01b-45a7-b3bb-a5ec3f48a176 [StreamSets Pipeline] . StreamSets default server name [Server]
+Nodes: 8, edges: 2

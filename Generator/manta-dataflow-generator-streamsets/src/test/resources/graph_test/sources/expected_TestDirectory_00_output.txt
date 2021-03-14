@@ -1,0 +1,13 @@
+UNKNOWN [Column] . *.json [File] . directory [Directory] . file [Directory]
+directory [Directory] . file [Directory]
+file [Directory]
+/UNKNOWN [Field] . Directory 1 [StreamSets Directory Stage] . TestDirectoryc0747519-aa6a-4779-8f9f-b98d486a6e54 [StreamSets Pipeline] . StreamSets default server name [Server]
+/UNKNOWN [Field] . Trash 1 [StreamSets Trash Stage] . TestDirectoryc0747519-aa6a-4779-8f9f-b98d486a6e54 [StreamSets Pipeline] . StreamSets default server name [Server]
+*.json [File] . directory [Directory] . file [Directory]
+StreamSets default server name [Server]
+Directory 1 [StreamSets Directory Stage] . TestDirectoryc0747519-aa6a-4779-8f9f-b98d486a6e54 [StreamSets Pipeline] . StreamSets default server name [Server]
+TestDirectoryc0747519-aa6a-4779-8f9f-b98d486a6e54 [StreamSets Pipeline] . StreamSets default server name [Server]
+Trash 1 [StreamSets Trash Stage] . TestDirectoryc0747519-aa6a-4779-8f9f-b98d486a6e54 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	UNKNOWN [Column] . *.json [File] . directory [Directory] . file [Directory]	->	/UNKNOWN [Field] . Directory 1 [StreamSets Directory Stage] . TestDirectoryc0747519-aa6a-4779-8f9f-b98d486a6e54 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . Directory 1 [StreamSets Directory Stage] . TestDirectoryc0747519-aa6a-4779-8f9f-b98d486a6e54 [StreamSets Pipeline] . StreamSets default server name [Server]	->	/UNKNOWN [Field] . Trash 1 [StreamSets Trash Stage] . TestDirectoryc0747519-aa6a-4779-8f9f-b98d486a6e54 [StreamSets Pipeline] . StreamSets default server name [Server]
+Nodes: 10, edges: 2

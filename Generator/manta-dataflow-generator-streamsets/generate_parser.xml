@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+<!-- <!DOCTYPE project SYSTEM "http://jakarta.apache.org/ant/ant.dtd"> -->
+
+<project name="StreamSets Parser Generator" default="generate_parser" basedir="..">
+
+    <!-- Build Properties -->
+
+    <property name="source.encoding" value="utf-8"/>
+    <property name="java_src_dir" value="src/main/java"/>
+
+    <!-- Path to Java sources -->
+    <property name="manta.src.java" value="${java_src_dir}/eu/profinit/manta"/>
+
+    <!-- Paths to the grammar -->
+    <property name="manta.grammar.sourceDir" value="src/main/antlr3/parser"/>
+    <property name="manta.grammar.outputDir"
+              value="${manta.src.java}/dataflow/generator/streamsets/analyzer/stage/field/parser"/>
+
+    <property name="manta.grammar.FieldLexer" value="FieldLexer"/>
+
+    <property name="manta.grammar.FieldParser" value="FieldParser"/>
+
+    <!-- Passed compile-classpath from the maven containing antlr. -->
+    <path id="maven.passed.classpath">
+        <path path="${compile-classpath}"/>
+    </path>
+
+    <!-- Generates Sample parser out of specified grammar. -->
+    <target name="generate_parser">
+
+        <echo message="Generating StreamSets lexer ${manta.grammar.FieldLexer}.g" level="verbose"/>
+        <java dir="${manta.grammar.sourceDir}" classname="org.antlr.Tool" failonerror="true" fork="true">
+            <classpath>
+                <path refid="maven.passed.classpath"/>
+            </classpath>
+
+            <arg line="-Xconversiontimeout 60000 -Xmaxinlinedfastates 10 -Xminswitchalts 3 ${manta.grammar.FieldLexer}.g"/>
+            <jvmarg value="-Xmx2048m"/>
+        </java>
+
+        <!-- move files -->
+        <move todir="${manta.grammar.outputDir}">
+            <fileset dir="${manta.grammar.sourceDir}">
+                <exclude name="*.g"/>
+                <exclude name="*.tokens"/>
+            </fileset>
+        </move>
+
+        <echo message="Generating StreamSets Main grammar ${manta.grammar.FieldParser}.g" level="verbose"/>
+        <java dir="${manta.grammar.sourceDir}" classname="org.antlr.Tool" failonerror="true" fork="true">
+            <classpath>
+                <path refid="maven.passed.classpath"/>
+            </classpath>
+
+            <arg line="-Xconversiontimeout 60000 -Xmaxinlinedfastates 10 -Xminswitchalts 3 ${manta.grammar.FieldParser}.g"/>
+            <jvmarg value="-Xmx2048m"/>
+        </java>
+
+        <!-- move files -->
+        <move todir="${manta.grammar.outputDir}">
+            <fileset dir="${manta.grammar.sourceDir}">
+                <exclude name="*.g"/>
+                <exclude name="*.tokens"/>
+            </fileset>
+        </move>
+
+    </target>
+
+</project>

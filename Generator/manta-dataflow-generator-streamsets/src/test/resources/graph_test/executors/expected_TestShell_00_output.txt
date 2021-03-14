@@ -1,0 +1,8 @@
+/test_field [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestShell88d4e122-c211-4e2a-a845-5f3137716330 [StreamSets Pipeline] . StreamSets default server name [Server]
+/test_field [Field] . Shell 1 [StreamSets Shell Stage] . TestShell88d4e122-c211-4e2a-a845-5f3137716330 [StreamSets Pipeline] . StreamSets default server name [Server]
+StreamSets default server name [Server]
+Dev Data Generator 1 [StreamSets Default Stage] . TestShell88d4e122-c211-4e2a-a845-5f3137716330 [StreamSets Pipeline] . StreamSets default server name [Server]
+TestShell88d4e122-c211-4e2a-a845-5f3137716330 [StreamSets Pipeline] . StreamSets default server name [Server]
+Shell 1 [StreamSets Shell Stage] . TestShell88d4e122-c211-4e2a-a845-5f3137716330 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/test_field [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestShell88d4e122-c211-4e2a-a845-5f3137716330 [StreamSets Pipeline] . StreamSets default server name [Server]	->	/test_field [Field] . Shell 1 [StreamSets Shell Stage] . TestShell88d4e122-c211-4e2a-a845-5f3137716330 [StreamSets Pipeline] . StreamSets default server name [Server]
+Nodes: 6, edges: 1

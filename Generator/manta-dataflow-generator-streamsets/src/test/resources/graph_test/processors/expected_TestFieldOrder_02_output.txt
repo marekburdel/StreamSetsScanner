@@ -1,0 +1,11 @@
+/UNKNOWN [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+/UNKNOWN [Field] . Field Order 1 [StreamSets Field Order Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+/UNKNOWN [Field] . Trash 1 [StreamSets Trash Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+StreamSets default server name [Server]
+Dev Data Generator 1 [StreamSets Default Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+Field Order 1 [StreamSets Field Order Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+Trash 1 [StreamSets Trash Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]	->	/UNKNOWN [Field] . Field Order 1 [StreamSets Field Order Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . Field Order 1 [StreamSets Field Order Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]	->	/UNKNOWN [Field] . Trash 1 [StreamSets Trash Stage] . TestFieldOrder02941c1908-f9e2-46cc-8b9a-08df20e180c6 [StreamSets Pipeline] . StreamSets default server name [Server]
+Nodes: 8, edges: 2

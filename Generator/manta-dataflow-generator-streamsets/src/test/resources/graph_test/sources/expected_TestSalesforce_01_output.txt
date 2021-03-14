@@ -1,0 +1,12 @@
+username [Application]
+UNKNOWN [Column] . DEFAULT_TABLE_NAME [Service] . username [Application]
+/UNKNOWN [Field] . Salesforce 1 [StreamSets Salesforce Stage] . TestSalesforce01092d2a3a-62bc-40ef-b69f-ea7d8a72ef0f [StreamSets Pipeline] . StreamSets default server name [Server]
+/UNKNOWN [Field] . Trash 1 [StreamSets Trash Stage] . TestSalesforce01092d2a3a-62bc-40ef-b69f-ea7d8a72ef0f [StreamSets Pipeline] . StreamSets default server name [Server]
+StreamSets default server name [Server]
+DEFAULT_TABLE_NAME [Service] . username [Application]
+TestSalesforce01092d2a3a-62bc-40ef-b69f-ea7d8a72ef0f [StreamSets Pipeline] . StreamSets default server name [Server]
+Salesforce 1 [StreamSets Salesforce Stage] . TestSalesforce01092d2a3a-62bc-40ef-b69f-ea7d8a72ef0f [StreamSets Pipeline] . StreamSets default server name [Server]
+Trash 1 [StreamSets Trash Stage] . TestSalesforce01092d2a3a-62bc-40ef-b69f-ea7d8a72ef0f [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	UNKNOWN [Column] . DEFAULT_TABLE_NAME [Service] . username [Application]	->	/UNKNOWN [Field] . Salesforce 1 [StreamSets Salesforce Stage] . TestSalesforce01092d2a3a-62bc-40ef-b69f-ea7d8a72ef0f [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . Salesforce 1 [StreamSets Salesforce Stage] . TestSalesforce01092d2a3a-62bc-40ef-b69f-ea7d8a72ef0f [StreamSets Pipeline] . StreamSets default server name [Server]	->	/UNKNOWN [Field] . Trash 1 [StreamSets Trash Stage] . TestSalesforce01092d2a3a-62bc-40ef-b69f-ea7d8a72ef0f [StreamSets Pipeline] . StreamSets default server name [Server]
+Nodes: 9, edges: 2

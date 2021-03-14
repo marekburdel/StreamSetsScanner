@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Connector.iml" filepath="$PROJECT_DIR$/.idea/Connector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manta-connector-streamsets/manta-connector-streamsets.iml" filepath="$PROJECT_DIR$/manta-connector-streamsets/manta-connector-streamsets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manta-connector-streamsets-extractor/manta-connector-streamsets-extractor.iml" filepath="$PROJECT_DIR$/manta-connector-streamsets-extractor/manta-connector-streamsets-extractor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manta-connector-streamsets-model/manta-connector-streamsets-model.iml" filepath="$PROJECT_DIR$/manta-connector-streamsets-model/manta-connector-streamsets-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manta-connector-streamsets-resolver/manta-connector-streamsets-resolver.iml" filepath="$PROJECT_DIR$/manta-connector-streamsets-resolver/manta-connector-streamsets-resolver.iml" />
+    </modules>
+  </component>
+</project>

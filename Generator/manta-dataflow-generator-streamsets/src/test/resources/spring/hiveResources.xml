@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="hiveDataResource" class="eu.profinit.manta.dataflow.model.impl.ResourceImpl">
+        <constructor-arg value="Hive" />
+        <constructor-arg value="Hive" />
+        <constructor-arg value="Hive Database" />
+    </bean>
+
+    <bean id="hiveScriptResource" class="eu.profinit.manta.dataflow.model.impl.ResourceImpl">
+        <constructor-arg value="Hive PL/SQL" />
+        <constructor-arg value="Hive scripts" />
+        <constructor-arg value="Hive PL/SQL scripts" />
+    </bean>
+
+</beans>

@@ -1,0 +1,12 @@
+getmanta.com [Application]
+UNKNOWN [Column] . HTTP POST [Service] . getmanta.com [Application]
+/UNKNOWN [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestHTTPClient8f0a0f34-cc30-496d-bbc0-d98bd428781b [StreamSets Pipeline] . StreamSets default server name [Server]
+/UNKNOWN [Field] . HTTP Client 1 [StreamSets HTTP Client Stage] . TestHTTPClient8f0a0f34-cc30-496d-bbc0-d98bd428781b [StreamSets Pipeline] . StreamSets default server name [Server]
+StreamSets default server name [Server]
+HTTP POST [Service] . getmanta.com [Application]
+Dev Data Generator 1 [StreamSets Default Stage] . TestHTTPClient8f0a0f34-cc30-496d-bbc0-d98bd428781b [StreamSets Pipeline] . StreamSets default server name [Server]
+HTTP Client 1 [StreamSets HTTP Client Stage] . TestHTTPClient8f0a0f34-cc30-496d-bbc0-d98bd428781b [StreamSets Pipeline] . StreamSets default server name [Server]
+TestHTTPClient8f0a0f34-cc30-496d-bbc0-d98bd428781b [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestHTTPClient8f0a0f34-cc30-496d-bbc0-d98bd428781b [StreamSets Pipeline] . StreamSets default server name [Server]	->	/UNKNOWN [Field] . HTTP Client 1 [StreamSets HTTP Client Stage] . TestHTTPClient8f0a0f34-cc30-496d-bbc0-d98bd428781b [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . HTTP Client 1 [StreamSets HTTP Client Stage] . TestHTTPClient8f0a0f34-cc30-496d-bbc0-d98bd428781b [StreamSets Pipeline] . StreamSets default server name [Server]	->	UNKNOWN [Column] . HTTP POST [Service] . getmanta.com [Application]
+Nodes: 9, edges: 2

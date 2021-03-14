@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <!--JSP 2.0 Expression Language StreamSets' functions-->
+    <import resource="streamSetsExpressionLanguageFunctions.xml" />
+
+    <!--Oracle-->
+    <import resource="oracleResources.xml" />
+    <import resource="classpath:manta-dataflow-generator-oracle/oracleBuiltinFunctionsConfig.xml" />
+    <import resource="classpath:manta-dataflow-filter/oracleFilterTask.xml" />
+
+    <!-- Postgresql/Greenplum -->
+    <import resource="postgresqlResources.xml"/>
+    <import resource="classpath:manta-dataflow-generator-postgresql/postgresqlBuiltinFunctionsConfig.xml"/>
+    <import resource="classpath:manta-dataflow-filter/postgresqlFilterTask.xml"/>
+
+    <!-- Hive -->
+    <import resource="hiveResources.xml"/>
+    <import resource="classpath:manta-dataflow-generator-hive/hiveBuiltinFunctionsConfig.xml"/>
+    <import resource="classpath:manta-dataflow-filter/hiveFilterTask.xml"/>
+
+    <!-- Teradata -->
+    <import resource="teradataResources.xml"/>
+    <import resource="classpath:manta-dataflow-generator-teradata13/teradataTask.xml"/>
+    <import resource="classpath:manta-dataflow-filter/teradataFilterTask.xml"/>
+
+    <context:property-placeholder location="spring/streamsetsFlowTest.properties"/>
+
+    <bean id="streamSetsDataflowTask" class="eu.profinit.manta.dataflow.generator.streamsets.StreamSetsDataflowTask">
+        <property name="scriptResource" ref="streamSetsScriptResource"/>
+        <property name="serverAnalyzer" ref="streamSetsServerAnalyzer"/>
+    </bean>
+
+    <bean id="nodeCreator" class="eu.profinit.manta.dataflow.generator.modelutils.NodeCreatorImpl">
+        <property name="fileSystemResource" ref="fileSystemResource"/>
+        <property name="lowerCaseFilePath" value="false" />
+    </bean>
+
+    <bean id="streamSetsScriptResource" class="eu.profinit.manta.dataflow.model.impl.ResourceImpl">
+        <constructor-arg value="StreamSets" />
+        <constructor-arg value="StreamSets" />
+        <constructor-arg value="StreamSets ETL" />
+    </bean>
+
+    <bean id="streamSetsServerAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.StreamSetsServerAnalyzer">
+        <property name="serverName" value="StreamSets default server name" />
+        <property name="pipelineAnalyzer" ref="streamSetsPipelineAnalyzer"/>
+        <property name="topologyAnalyzer" ref="streamSetsTopologyAnalyzer"/>
+    </bean>
+
+    <bean id="streamSetsPipelineAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.PipelineAnalyzer">
+        <property name="pipelineConfigAnalyzer" ref="streamSetsPipelineConfigAnalyzer"/>
+    </bean>
+
+
+    <bean id="streamSetsTopologyAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.TopologyAnalyzer">
+        <!-- UNSUPPORTED -->
+    </bean>
+
+    <bean id="streamSetsPipelineConfigAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.PipelineConfigAnalyzer">
+        <property name="stageAnalyzers">
+            <map>
+                <!--Stage Analyzers-->
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).DEFAULT_STAGE }" value-ref="streamSetsUnknownStageAnalyzer" />
+                <!--Sources-->
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).JDBC_QUERY_CONSUMER }" value-ref="streamSetsJDBCQueryConsumerAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).ORACLE_CDC_CLIENT }" value-ref="streamSetsOracleCDCClientAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).POSTGRESQL_CDC_CLIENT }" value-ref="streamSetsPostgreSQLCDCClientAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).KAFKA_MULTITOPIC_CONSUMER }" value-ref="streamSetsKafkaMultitopicConsumerAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).SALESFORCE }" value-ref="streamSetsSalesforceAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).DIRECTORY }" value-ref="streamSetsDirectoryAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).HADOOP_FS_STANDALONE }" value-ref="streamSetsHadoopFSStandaloneAnalyzer" />
+
+                <!--Processors -->
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).EXPRESSION_EVALUATOR }" value-ref="streamSetsExpressionEvaluatorAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_HASHER }" value-ref="streamSetsFieldHasherAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_MASKER }" value-ref="streamSetsFieldMaskerAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_REMOVER }" value-ref="streamSetsFieldRemoverAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_RENAMER }" value-ref="streamSetsFieldRenamerAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_REPLACER }" value-ref="streamSetsFieldReplacerAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_SPLITTER }" value-ref="streamSetsFieldSplitterAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_TYPE_CONVERTER }" value-ref="streamSetsFieldTypeConverterAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).STREAM_SELECTOR }" value-ref="streamSetsStreamSelectorAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).HIVE_METADATA }" value-ref="streamSetsHiveMetadataAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).SCHEMA_GENERATOR }" value-ref="streamSetsSchemaGeneratorAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_ORDER }" value-ref="streamSetsFieldOrderAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).DATA_PARSER }" value-ref="streamSetsDataParserAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).FIELD_PIVOTER }" value-ref="streamSetsFieldPivoterAnalyzer" />
+
+                <!--Destinations-->
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).TRASH }" value-ref="streamSetsTrashAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).HIVE_METASTORE }" value-ref="streamSetsHiveMetastoreAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).JDBC_PRODUCER }" value-ref="streamSetsJDBCProducerAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).KAFKA_PRODUCER }" value-ref="streamSetsKafkaProducerAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).HTTP_CLIENT }" value-ref="streamSetsHTTPClientAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).LOCAL_FS }" value-ref="streamSetsLocalFSAnalyzer" />
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).HADOOP_FS }" value-ref="streamSetsHadoopFSAnalyzer" />
+
+                <!--Executors-->
+                <entry key="#{ T(eu.profinit.manta.connector.streamsets.model.model.stage.IStageType.StageName).SHELL }"
+                       value-ref="streamSetsShellAnalyzer"/>
+
+            </map>
+        </property>
+    </bean>
+
+<!--Stage Analyzers-->
+    <bean id="streamSetsUnknownStageAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.UnknownStageAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <!--    Sources/Origins-->
+    <bean id="streamSetsJDBCQueryConsumerAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.source.JDBCQueryConsumerAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsOracleCDCClientAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.source.OracleCDCClientAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsPostgreSQLCDCClientAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.source.PostgreSQLCDCClientAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsKafkaMultitopicConsumerAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.source.KafkaMultitopicConsumerAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsSalesforceAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.source.SalesforceAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsDirectoryAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.source.DirectoryAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsHadoopFSStandaloneAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.source.HadoopFSStandaloneAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+
+    <!--    Processors-->
+    <bean id="streamSetsExpressionEvaluatorAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.ExpressionEvaluatorAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldHasherAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldHasherAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldMaskerAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldMaskerAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldRemoverAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldRemoverAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldRenamerAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldRenamerAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldReplacerAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldReplacerAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldSplitterAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldSplitterAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldTypeConverterAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldTypeConverterAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsStreamSelectorAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.StreamSelectorAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsHiveMetadataAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.HiveMetadataAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsSchemaGeneratorAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.SchemaGeneratorAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldOrderAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldOrderAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsDataParserAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.DataParserAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsFieldPivoterAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.processor.FieldPivoterAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+
+    <!--    Destinations-->
+    <bean id="streamSetsTrashAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.destination.TrashAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsHiveMetastoreAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.destination.HiveMetastoreAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsJDBCProducerAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.destination.JDBCProducerAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsKafkaProducerAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.destination.KafkaProducerAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsHTTPClientAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.destination.HTTPClientAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsLocalFSAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.destination.LocalFSAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+    <bean id="streamSetsHadoopFSAnalyzer" class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.destination.HadoopFSAnalyzer" parent="streamSetsAbstractStageAnalyzer"/>
+
+    <!--    Executors-->
+    <bean id="streamSetsShellAnalyzer"
+          class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.executor.ShellAnalyzer"
+          parent="streamSetsAbstractStageAnalyzer"/>
+
+
+    <!-- Abstract parent analyzer for all stages-->
+    <bean id="streamSetsAbstractStageAnalyzer"
+          class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.AbstractStageAnalyzer" abstract="true">
+        <property name="queryService" ref="dataflowQueryService"/>
+        <property name="nodeCreator" ref="nodeCreator"/>
+        <property name="parserService" ref="streamSetsFieldParserService"/>
+    </bean>
+
+    <!--Field parser service-->
+    <bean id="streamSetsFieldParserService"
+          class="eu.profinit.manta.dataflow.generator.streamsets.analyzer.stage.field.FieldParserService">
+        <property name="expressionLanguageHelper" ref="streamSetsExpressionLanguageHelper"/>
+    </bean>
+
+    <bean id="streamSetsExpressionLanguageHelper"
+          class="eu.profinit.manta.dataflow.generator.streamsets.helper.el.ExpressionLanguageHelper">
+        <property name="elDependenciesResolver" ref="streamSetsELDependenciesResolver"/>
+        <property name="elRuntimeValuesResolver" ref="streamSetsELRuntimeValuesResolver"/>
+    </bean>
+
+    <bean id="streamSetsELDependenciesResolver"
+          class="eu.profinit.manta.dataflow.generator.streamsets.helper.el.ELDependenciesResolver">
+        <property name="functionMapping" ref="streamSetsFunctionMapping"/>
+        <property name="evaluator" ref="commonElEvaluator"/>
+    </bean>
+
+    <bean id="streamSetsELRuntimeValuesResolver"
+          class="eu.profinit.manta.dataflow.generator.streamsets.helper.el.ELRuntimeValuesResolver">
+        <property name="runtimeValuesPath" value="src/test/resources/runtime_values_test/"/>
+        <property name="evaluator" ref="commonElEvaluator"/>
+    </bean>
+
+    <!--JSP 2.0 Expression Language Evaluator-->
+    <bean id="commonElEvaluator" class="org.apache.commons.el.ExpressionEvaluatorImpl"/>
+
+    <!--Query service-->
+    <bean id="dataflowQueryService"
+          class="eu.profinit.manta.dataflow.generator.common.query.impl.DataflowQueryServiceImpl">
+        <property name="specificDataflowQueryServices">
+            <map>
+                <entry key="#{ T(eu.profinit.manta.connector.common.connections.ConnectionType).ORACLE.getId() }"
+                       value-ref="oracleDataflowQueryService"/>
+                <entry key="#{ T(eu.profinit.manta.connector.common.connections.ConnectionType).POSTGRESQL.getId() }"
+                       value-ref="postgresqlDataflowQueryService"/>
+                <entry key="#{ T(eu.profinit.manta.connector.common.connections.ConnectionType).HIVE.getId() }"
+                       value-ref="hiveDataflowQueryService"/>
+                <entry key="#{ T(eu.profinit.manta.connector.common.connections.ConnectionType).TERADATA.getId() }"
+                       value-ref="teradataDataflowQueryService"/>
+            </map>
+        </property>
+        <property name="genericDatasourceTypes">
+            <set>
+                <value>#{ T(eu.profinit.manta.connector.common.connections.ConnectionType).ODBC.getId() }</value>
+                <value>#{ T(eu.profinit.manta.connector.common.connections.ConnectionType).JDBC.getId() }</value>
+                <value>#{ T(eu.profinit.manta.connector.common.connections.ConnectionType).UNKNOWN.getId() }</value>
+            </set>
+        </property>
+    </bean>
+
+    <!--Query services for specified databases-->
+
+    <!--Oracle START-->
+
+    <bean id="oracleDictionaryMappingService" class="eu.profinit.manta.connector.dictionary.oracle.OracleDictionaryMantaMapping">
+        <constructor-arg value="src/test/resources/mappings/oracle/oracleDictionaryMantaMapping.csv" />
+        <constructor-arg value="src/test/resources/mappings/oracle/oracleDictionaryMantaMappingManual.csv" />
+    </bean>
+
+    <bean id="oracleParserService" class="eu.profinit.manta.plsql.parser.service.ParserServiceImpl">
+        <property name="processWhiteSpace" value="false"/>
+    </bean>
+
+    <bean id="oracleFilterTask" parent="oracleFilterTaskStub" />
+
+    <bean id="oracleDataflowQueryService" class="eu.profinit.manta.dataflow.generator.oracle.query.OracleDataflowQueryService">
+        <property name="databaseResource" ref="oracleDataResource" />
+        <property name="scriptResource" ref="oracleScriptResource" />
+        <property name="builtinFunctionProcessor" ref="oracleBuiltinFunctionProcessor" />
+        <property name="readerProvider">
+            <bean class="eu.profinit.manta.connector.oracle.OracleReaderProvider">
+                <property name="parserService" ref="oracleParserService" />
+                <property name="contextDirectory" value="target/test-classes/dictionary/Oracle" />
+                <property name="dataDictionaryDaoFactory">
+                    <bean class="eu.profinit.manta.connector.common.dictionary.dao.jdbc.H2DictionaryDaoFactory">
+                        <property name="createMissing" value="false" />
+                    </bean>
+                </property>
+                <property name="dialect">
+                    <bean class="eu.profinit.manta.connector.oracle.dictionary.dialect.OracleDialect" />
+                </property>
+                <property name="dictionaryMappingService" ref="oracleDictionaryMappingService" />
+            </bean>
+        </property>
+        <property name="filterTask" ref="oracleFilterTask" />
+    </bean>
+
+    <!--Oracle END-->
+
+    <!-- Postgresql/Greenplum START -->
+
+    <bean id="postgresqlDictionaryMantaMapping" class="eu.profinit.manta.connector.postgresql.dictionary.mapping.PostgresqlDictionaryMantaMapping">
+        <constructor-arg value="src/test/resources/mappings/postgresql/postgresqlDictionaryMantaMapping.csv" />
+        <constructor-arg value="src/test/resources/mappings/postgresql/postgresqlDictionaryMantaMappingManual.csv" />
+    </bean>
+
+    <bean id="postgresqlParserService" class="eu.profinit.manta.connector.postgresql.resolver.service.ParserServiceImpl" scope="prototype">
+        <property name="processWhiteSpace" value="false" />
+    </bean>
+
+    <bean id="postgresqlReaderProvider" class="eu.profinit.manta.connector.postgresql.PostgresqlReaderProvider">
+        <property name="parserService" ref="postgresqlParserService" />
+        <property name="contextDirectory" value="target/test-classes/dictionary/PostgreSQL" />
+        <property name="dataDictionaryDaoFactory">
+            <bean class="eu.profinit.manta.connector.common.dictionary.dao.jdbc.H2DictionaryDaoFactory" scope="singleton">
+                <property name="createMissing" value="false" />
+            </bean>
+        </property>
+        <property name="dialect">
+            <bean class="eu.profinit.manta.connector.postgresql.dictionary.dialect.PostgresqlDialect" />
+        </property>
+        <property name="dictionaryMappingService" ref="postgresqlDictionaryMantaMapping" />
+    </bean>
+
+    <bean id="postgresqlDataflowQueryService" class="eu.profinit.manta.dataflow.generator.postgresql.query.PostgresqlDataflowQueryService">
+        <property name="databaseResource" ref="postgresqlDataResource" />
+        <property name="scriptResource" ref="postgresqlScriptResource" />
+        <property name="builtinFunctionProcessor" ref="postgresqlBuiltinFunctionProcessor" />
+        <property name="readerProvider" ref="postgresqlReaderProvider" />
+        <property name="filterTask">
+            <bean parent="postgresqlFilterTaskStub" />
+        </property>
+    </bean>
+
+    <!-- Postgresql/Greenplum END -->
+
+    <!-- Hive START -->
+
+    <bean id="hiveFilterTask" parent="hiveFilterTaskStub" />
+
+    <bean id="hiveParserService" class="eu.profinit.manta.connector.hive.resolver.ParserServiceImpl" scope="prototype"/>
+
+    <bean id="hiveReaderProvider" class="eu.profinit.manta.connector.hive.HiveReaderProvider">
+        <property name="parserService" ref="hiveParserService" />
+        <property name="contextDirectory" value="target/test-classes/dictionary/Hive" />
+        <property name="dataDictionaryDaoFactory">
+            <bean class="eu.profinit.manta.connector.common.dictionary.dao.jdbc.H2DictionaryDaoFactory" scope="singleton">
+                <property name="createMissing" value="false" />
+            </bean>
+        </property>
+        <property name="dialect">
+            <bean class="eu.profinit.manta.connector.hive.dictionary.dialect.HiveDialect" />
+        </property>
+        <property name="dictionaryMappingService" ref="hiveDictionaryMantaMapping" />
+    </bean>
+
+    <bean id="hiveDataflowQueryService" class="eu.profinit.manta.dataflow.generator.hive.query.HiveDataflowQueryService">
+        <property name="databaseResource" ref="hiveDataResource" />
+        <property name="scriptResource" ref="hiveScriptResource" />
+        <property name="nodeCreator" ref="nodeCreator" />
+        <property name="builtinFunctionProcessor" ref="hiveBuiltinFunctionProcessor" />
+        <property name="readerProvider" ref="hiveReaderProvider" />
+        <property name="filterTask" ref="hiveFilterTask"/>
+    </bean>
+
+    <bean id="hiveDictionaryMantaMapping"
+          class="eu.profinit.manta.connector.hive.dictionary.mapping.HiveDictionaryMantaMapping">
+        <constructor-arg value="src/test/resources/mappings/hive/hiveDictionaryMantaMapping.csv"/>
+        <constructor-arg value="src/test/resources/mappings/hive/hiveDictionaryMantaMappingManual.csv"/>
+    </bean>
+
+    <!-- Hive END -->
+
+    <!-- Teradata START -->
+
+    <bean id="teradataDictionaryMantaMapping"
+          class="eu.profinit.manta.connector.teradata13.dictionary.mapping.TeradataDictionaryMantaMapping">
+        <constructor-arg value="src/test/resources/mappings/teradata/teradataDictionaryMantaMapping.csv"/>
+        <constructor-arg value="src/test/resources/mappings/teradata/teradataDictionaryMantaMappingManual.csv"/>
+    </bean>
+
+    <bean id="teradataReaderProvider" class="eu.profinit.manta.connector.teradata13.TeradataReaderProvider">
+        <property name="contextDirectory" value="target/test-classes/dictionary/Teradata"/>
+        <property name="dataDictionaryFactory">
+            <bean class="eu.profinit.manta.connector.teradata13.dictionary.h2.H2DictionaryFactory">
+                <property name="initialize" value="false"/>
+            </bean>
+        </property>
+        <property name="processWhiteSpace" value="false"/>
+        <property name="dictionaryMappingService" ref="teradataDictionaryMantaMapping"/>
+    </bean>
+
+    <bean id="teradataDataflowQueryService"
+          class="eu.profinit.manta.dataflow.generator.teradata13.query.TeradataDataflowQueryService">
+        <property name="databaseResource" ref="teradataDataResource"/>
+        <property name="scriptResource" ref="teradataScriptResource"/>
+        <property name="teradataTask">
+            <bean parent="teradataDataflowTaskStub">
+                <property name="scriptResource" ref="teradataScriptResource"/>
+                <property name="nodeCreator" ref="nodeCreator"/>
+            </bean>
+        </property>
+        <property name="readerProvider" ref="teradataReaderProvider"/>
+        <property name="filterTask">
+            <bean parent="teradataFilterTaskStub"/>
+        </property>
+    </bean>
+
+    <!-- Teradata END -->
+
+    <bean id="fileSystemResource" class="eu.profinit.manta.dataflow.model.impl.ResourceImpl">
+        <constructor-arg value="filesystem.resource.name"/>
+        <constructor-arg value="filesystem.resource.type"/>
+        <constructor-arg value="filesystem.resource.description"/>
+    </bean>
+
+
+</beans>

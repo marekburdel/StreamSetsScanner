@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>eu.profinit.manta</groupId>
+        <artifactId>manta-platform-parent-pom</artifactId>
+        <version>1.29-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+    <artifactId>manta-connector-streamsets-resolver</artifactId>
+    <version>1.29-SNAPSHOT</version>
+    <name>MANTA Connector StreamSets Resolver</name>
+    <scm>
+        <url>
+            http://manta-cm/svn/manta/Source_Code/Internal/Connector/StreamSets/trunk/manta-connector-streamsets-resolver
+        </url>
+        <connection>
+            scm:svn:http://manta-cm/svn/manta/Source_Code/Internal/Connector/StreamSets/trunk/manta-connector-streamsets-resolver
+        </connection>
+        <developerConnection>
+            scm:svn:http://manta-cm/svn/manta/Source_Code/Internal/Connector/StreamSets/trunk/manta-connector-streamsets-resolver
+        </developerConnection>
+    </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalparam>${javadoc.opts}</additionalparam>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <repositories>
+        <repository>
+            <id>manta-releases</id>
+            <url>http://manta-cm/nexus/content/repositories/manta-releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>manta-snapshots</id>
+            <url>http://manta-cm/nexus/content/repositories/manta-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.profinit.manta</groupId>
+            <artifactId>manta-platform-automation</artifactId>
+            <version>1.29-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.profinit.manta</groupId>
+            <artifactId>manta-platform-logging-binding</artifactId>
+            <version>1.29-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.profinit.manta</groupId>
+            <artifactId>manta-connector-streamsets-model</artifactId>
+            <version>1.29-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <description>Resolver for StreamSets.</description>
+</project>

@@ -1,0 +1,13 @@
+TABLE COLUMNS UNKNOWN [Column] . T1 [Table] . SCH1 [Schema] . __dummy__ [Database]
+__dummy__ [Database]
+/'TABLE COLUMNS UNKNOWN' [Field] . JDBC Query Consumer 1 [StreamSets JDBC Query Consumer Stage] . TestJDBCQueryConsumer01d0980a6b-aa6c-4633-9abb-0db73b0ae7cd [StreamSets Pipeline] . StreamSets default server name [Server]
+/'TABLE COLUMNS UNKNOWN' [Field] . Trash 1 [StreamSets Trash Stage] . TestJDBCQueryConsumer01d0980a6b-aa6c-4633-9abb-0db73b0ae7cd [StreamSets Pipeline] . StreamSets default server name [Server]
+SCH1 [Schema] . __dummy__ [Database]
+StreamSets default server name [Server]
+JDBC Query Consumer 1 [StreamSets JDBC Query Consumer Stage] . TestJDBCQueryConsumer01d0980a6b-aa6c-4633-9abb-0db73b0ae7cd [StreamSets Pipeline] . StreamSets default server name [Server]
+TestJDBCQueryConsumer01d0980a6b-aa6c-4633-9abb-0db73b0ae7cd [StreamSets Pipeline] . StreamSets default server name [Server]
+Trash 1 [StreamSets Trash Stage] . TestJDBCQueryConsumer01d0980a6b-aa6c-4633-9abb-0db73b0ae7cd [StreamSets Pipeline] . StreamSets default server name [Server]
+T1 [Table] . SCH1 [Schema] . __dummy__ [Database]
+DIRECT	TABLE COLUMNS UNKNOWN [Column] . T1 [Table] . SCH1 [Schema] . __dummy__ [Database]	->	/'TABLE COLUMNS UNKNOWN' [Field] . JDBC Query Consumer 1 [StreamSets JDBC Query Consumer Stage] . TestJDBCQueryConsumer01d0980a6b-aa6c-4633-9abb-0db73b0ae7cd [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/'TABLE COLUMNS UNKNOWN' [Field] . JDBC Query Consumer 1 [StreamSets JDBC Query Consumer Stage] . TestJDBCQueryConsumer01d0980a6b-aa6c-4633-9abb-0db73b0ae7cd [StreamSets Pipeline] . StreamSets default server name [Server]	->	/'TABLE COLUMNS UNKNOWN' [Field] . Trash 1 [StreamSets Trash Stage] . TestJDBCQueryConsumer01d0980a6b-aa6c-4633-9abb-0db73b0ae7cd [StreamSets Pipeline] . StreamSets default server name [Server]
+Nodes: 10, edges: 2

@@ -1,0 +1,13 @@
+column_name [Column] . table_name [Table] . schema_name [Schema] . test_jdbc [Database]
+test_jdbc [Database]
+/name [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestJDBCProducer01eb91ac6d-bcdb-4628-ac3f-69d3fd093e50 [StreamSets Pipeline] . StreamSets default server name [Server]
+/name [Field] . JDBC Producer 1 [StreamSets JDBC Producer Stage] . TestJDBCProducer01eb91ac6d-bcdb-4628-ac3f-69d3fd093e50 [StreamSets Pipeline] . StreamSets default server name [Server]
+schema_name [Schema] . test_jdbc [Database]
+StreamSets default server name [Server]
+Dev Data Generator 1 [StreamSets Default Stage] . TestJDBCProducer01eb91ac6d-bcdb-4628-ac3f-69d3fd093e50 [StreamSets Pipeline] . StreamSets default server name [Server]
+JDBC Producer 1 [StreamSets JDBC Producer Stage] . TestJDBCProducer01eb91ac6d-bcdb-4628-ac3f-69d3fd093e50 [StreamSets Pipeline] . StreamSets default server name [Server]
+TestJDBCProducer01eb91ac6d-bcdb-4628-ac3f-69d3fd093e50 [StreamSets Pipeline] . StreamSets default server name [Server]
+table_name [Table] . schema_name [Schema] . test_jdbc [Database]
+DIRECT	/name [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestJDBCProducer01eb91ac6d-bcdb-4628-ac3f-69d3fd093e50 [StreamSets Pipeline] . StreamSets default server name [Server]	->	/name [Field] . JDBC Producer 1 [StreamSets JDBC Producer Stage] . TestJDBCProducer01eb91ac6d-bcdb-4628-ac3f-69d3fd093e50 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/name [Field] . JDBC Producer 1 [StreamSets JDBC Producer Stage] . TestJDBCProducer01eb91ac6d-bcdb-4628-ac3f-69d3fd093e50 [StreamSets Pipeline] . StreamSets default server name [Server]	->	column_name [Column] . table_name [Table] . schema_name [Schema] . test_jdbc [Database]
+Nodes: 10, edges: 2

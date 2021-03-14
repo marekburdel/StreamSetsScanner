@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--    Functions for SDC version 3.12.0-->
+    <util:map id="streamsetsFunctionMapping" map-class="java.util.HashMap">
+        <!--Record functions-->
+        <entry key="record:exists" value-ref="argsF"/>
+        <entry key="record:fieldAttribute" value-ref="argsF"/>
+        <entry key="record:fieldAttributeOrDefault" value-ref="argsF"/>
+        <entry key="record:type" value-ref="argsF"/>
+        <entry key="record:value" value-ref="argsFieldPathDirect"/>
+        <entry key="record:valueOrDefault" value-ref="argsFieldPathDirect"/>
+        <!--Math functions -->
+        <entry key="math:abs" value-ref="argsD"/>
+        <entry key="math:ceil" value-ref="argsD"/>
+        <entry key="math:floor" value-ref="argsD"/>
+        <entry key="math:max" value-ref="argsD"/>
+        <entry key="math:min" value-ref="argsD"/>
+        <entry key="math:round" value-ref="argsD"/>
+        <!--String functions-->
+        <entry key="str:concat" value-ref="argsDD"/>
+        <entry key="str:contains" value-ref="argsDF"/>
+        <entry key="str:endsWith" value-ref="argsDF"/>
+        <entry key="str:escapeXML10" value-ref="argsF"/>
+        <entry key="str:escapeXML11" value-ref="argsF"/>
+        <entry key="str:indexOf" value-ref="argsFF"/>
+        <entry key="str:isNullOrEmpty" value-ref="argsF"/>
+        <entry key="str:lastIndexOf" value-ref="argsFF"/>
+        <entry key="str:length" value-ref="argsF"/>
+        <entry key="str:matches" value-ref="argsF"/>
+        <entry key="str:regexCapture" value-ref="argsD"/>
+        <entry key="str:replace" value-ref="argsDFF"/>
+        <entry key="str:replaceAll" value-ref="argsDFF"/>
+        <entry key="str:split" value-ref="argsD"/>
+        <entry key="str:splitKV" value-ref="argsD"/>
+        <entry key="str:startsWith" value-ref="argsFF"/>
+        <entry key="str:substring" value-ref="argsDFF"/>
+        <entry key="str:toLower" value-ref="argsD"/>
+        <entry key="str:toUpper" value-ref="argsD"/>
+        <entry key="str:trim" value-ref="argsD"/>
+        <entry key="str:truncate" value-ref="argsDF"/>
+        <entry key="str:unescapeJava" value-ref="argsF"/>
+        <entry key="str:unescapeXML" value-ref="argsF"/>
+        <entry key="str:urlDecode" value-ref="argsF"/>
+        <entry key="str:urlEncode" value-ref="argsF"/>
+    </util:map>
+
+    <util:list id="argsD">
+        <ref bean="directFunctionArg" />
+    </util:list>
+
+    <util:list id="argsDD">
+        <ref bean="directFunctionArg" />
+        <ref bean="directFunctionArg" />
+    </util:list>
+
+    <util:list id="argsDF">
+        <ref bean="directFunctionArg" />
+        <ref bean="filterFunctionArg" />
+    </util:list>
+
+    <util:list id="argsDFF">
+        <ref bean="directFunctionArg" />
+        <ref bean="filterFunctionArg" />
+        <ref bean="filterFunctionArg" />
+    </util:list>
+
+    <util:list id="argsFF">
+        <ref bean="filterFunctionArg"/>
+        <ref bean="filterFunctionArg"/>
+    </util:list>
+
+    <util:list id="argsF">
+        <ref bean="filterFunctionArg"/>
+    </util:list>
+
+    <util:list id="argsFieldPathDirect">
+        <ref bean="directFunctionArgFieldPath"/>
+    </util:list>
+
+
+    <bean id="directFunctionArgFieldPath" class="eu.profinit.manta.dataflow.generator.streamsets.helper.el.FunctionArg">
+        <constructor-arg
+                value="#{ T(eu.profinit.manta.dataflow.generator.streamsets.helper.el.EFunctionArgType).FIELD_PATH }"/>
+        <constructor-arg value="#{ T(eu.profinit.manta.dataflow.model.Edge.Type).DIRECT }"/>
+    </bean>
+
+    <bean id="directFunctionArg" class="eu.profinit.manta.dataflow.generator.streamsets.helper.el.FunctionArg">
+        <constructor-arg
+                value="#{ T(eu.profinit.manta.dataflow.generator.streamsets.helper.el.EFunctionArgType).EXPRESSION }"/>
+        <constructor-arg value="#{ T(eu.profinit.manta.dataflow.model.Edge.Type).DIRECT }"/>
+    </bean>
+
+    <bean id="filterFunctionArg" class="eu.profinit.manta.dataflow.generator.streamsets.helper.el.FunctionArg">
+        <constructor-arg
+                value="#{ T(eu.profinit.manta.dataflow.generator.streamsets.helper.el.EFunctionArgType).EXPRESSION }"/>
+        <constructor-arg value="#{ T(eu.profinit.manta.dataflow.model.Edge.Type).FILTER }"/>
+    </bean>
+
+</beans>

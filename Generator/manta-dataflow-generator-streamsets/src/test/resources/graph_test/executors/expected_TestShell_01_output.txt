@@ -1,0 +1,8 @@
+/UNKNOWN [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestShell0116e6bcea-5391-4d85-beb3-1be2a7eb4352 [StreamSets Pipeline] . StreamSets default server name [Server]
+/UNKNOWN [Field] . Shell 1 [StreamSets Shell Stage] . TestShell0116e6bcea-5391-4d85-beb3-1be2a7eb4352 [StreamSets Pipeline] . StreamSets default server name [Server]
+StreamSets default server name [Server]
+Dev Data Generator 1 [StreamSets Default Stage] . TestShell0116e6bcea-5391-4d85-beb3-1be2a7eb4352 [StreamSets Pipeline] . StreamSets default server name [Server]
+TestShell0116e6bcea-5391-4d85-beb3-1be2a7eb4352 [StreamSets Pipeline] . StreamSets default server name [Server]
+Shell 1 [StreamSets Shell Stage] . TestShell0116e6bcea-5391-4d85-beb3-1be2a7eb4352 [StreamSets Pipeline] . StreamSets default server name [Server]
+DIRECT	/UNKNOWN [Field] . Dev Data Generator 1 [StreamSets Default Stage] . TestShell0116e6bcea-5391-4d85-beb3-1be2a7eb4352 [StreamSets Pipeline] . StreamSets default server name [Server]	->	/UNKNOWN [Field] . Shell 1 [StreamSets Shell Stage] . TestShell0116e6bcea-5391-4d85-beb3-1be2a7eb4352 [StreamSets Pipeline] . StreamSets default server name [Server]
+Nodes: 6, edges: 1
